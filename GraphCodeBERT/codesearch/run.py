@@ -54,12 +54,11 @@ dfg_function={
     'javascript':DFG_javascript
 }
 
-from scripts.common import UNIXCODER
+from scripts.common import CODEBERT
 #load parsers
 parsers={}        
 for lang in dfg_function:
-    # LANGUAGE = Language(f'{CODEBERT}/GraphCodeBERT/codesearch/parser/my-languages.so', lang)
-    LANGUAGE = Language(f"{UNIXCODER}/parser/my-languages.so", lang)
+    LANGUAGE = Language(f'{CODEBERT}/GraphCodeBERT/codesearch/parser/my-languages.so', lang)
     parser = Parser()
     parser.set_language(LANGUAGE) 
     parser = [parser,dfg_function[lang]]    
