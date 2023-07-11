@@ -27,7 +27,7 @@ import random
 import torch
 import json
 import numpy as np
-from model import Model
+from .model import Model
 from torch.nn import CrossEntropyLoss, MSELoss
 from torch.utils.data import DataLoader, Dataset, SequentialSampler, RandomSampler,TensorDataset
 from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
@@ -39,8 +39,8 @@ from tqdm import tqdm, trange
 import multiprocessing
 cpu_cont = 16
 
-from parser import DFG_python,DFG_java,DFG_ruby,DFG_go,DFG_php,DFG_javascript
-from parser import (remove_comments_and_docstrings,
+from .parser import DFG_python,DFG_java,DFG_ruby,DFG_go,DFG_php,DFG_javascript
+from .parser import (remove_comments_and_docstrings,
                    tree_to_token_index,
                    index_to_code_token,
                    tree_to_variable_index)
@@ -54,10 +54,12 @@ dfg_function={
     'javascript':DFG_javascript
 }
 
+from scripts.common import UNIXCODER
 #load parsers
 parsers={}        
 for lang in dfg_function:
-    LANGUAGE = Language('parser/my-languages.so', lang)
+    # LANGUAGE = Language(f'{CODEBERT}/GraphCodeBERT/codesearch/parser/my-languages.so', lang)
+    LANGUAGE = Language(f"{UNIXCODER}/parser/my-languages.so", lang)
     parser = Parser()
     parser.set_language(LANGUAGE) 
     parser = [parser,dfg_function[lang]]    
